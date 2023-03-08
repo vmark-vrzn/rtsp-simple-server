@@ -35,20 +35,6 @@ RUN tar -C tmp -czf binaries/rtsp-simple-server_$${VERSION}_linux_amd64.tar.gz -
 RUN GOOS=darwin GOARCH=amd64 go build -ldflags "-X github.com/aler9/rtsp-simple-server/internal/core.version=$$VERSION" -o tmp/rtsp-simple-server
 RUN tar -C tmp -czf binaries/rtsp-simple-server_$${VERSION}_darwin_amd64.tar.gz --owner=0 --group=0 rtsp-simple-server rtsp-simple-server.yml LICENSE
 
-COPY --from=rpicamera32 /s/internal/rpicamera/exe/exe internal/rpicamera/exe/
-RUN GOOS=linux GOARCH=arm GOARM=6 go build -ldflags "-X github.com/aler9/rtsp-simple-server/internal/core.version=$$VERSION" -o tmp/rtsp-simple-server -tags rpicamera
-RUN tar -C tmp -czf binaries/rtsp-simple-server_$${VERSION}_linux_armv6.tar.gz --owner=0 --group=0 rtsp-simple-server rtsp-simple-server.yml LICENSE
-RUN rm internal/rpicamera/exe/exe
-
-COPY --from=rpicamera32 /s/internal/rpicamera/exe/exe internal/rpicamera/exe/
-RUN GOOS=linux GOARCH=arm GOARM=7 go build -ldflags "-X github.com/aler9/rtsp-simple-server/internal/core.version=$$VERSION" -o tmp/rtsp-simple-server -tags rpicamera
-RUN tar -C tmp -czf binaries/rtsp-simple-server_$${VERSION}_linux_armv7.tar.gz --owner=0 --group=0 rtsp-simple-server rtsp-simple-server.yml LICENSE
-RUN rm internal/rpicamera/exe/exe
-
-COPY --from=rpicamera64 /s/internal/rpicamera/exe/exe internal/rpicamera/exe/
-RUN GOOS=linux GOARCH=arm64 go build -ldflags "-X github.com/aler9/rtsp-simple-server/internal/core.version=$$VERSION" -o tmp/rtsp-simple-server -tags rpicamera
-RUN tar -C tmp -czf binaries/rtsp-simple-server_$${VERSION}_linux_arm64v8.tar.gz --owner=0 --group=0 rtsp-simple-server rtsp-simple-server.yml LICENSE
-RUN rm internal/rpicamera/exe/exe
 endef
 export DOCKERFILE_BINARIES
 
