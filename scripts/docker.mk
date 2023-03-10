@@ -38,7 +38,7 @@ docker:
 	--provenance=false \
 	--platform=linux/amd64 \
 	--build-arg BINARY="$$(echo binaries/*linux_amd64.tar.gz)" \
-	-t rtsp-simple-server:custom \
+	-t rtsp-simple-server:${VERSION} \
 	--load
 
 	docker buildx rm builder
