@@ -26,7 +26,7 @@ export DOCKERFILE_DOCKERHUB_RPI_64
 
 docker:
 	$(eval export DOCKER_CLI_EXPERIMENTAL=enabled)
-	$(eval VERSION := $(shell git describe --tags))
+	$(eval VERSION := $(shell git describe --tags $(shell git rev-list --tags --max-count=1)))
 
 	# docker login -u $(DOCKER_USER) -p $(DOCKER_PASSWORD)
 
