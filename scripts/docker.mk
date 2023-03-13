@@ -26,7 +26,8 @@ export DOCKERFILE_DOCKERHUB_RPI_64
 
 docker:
 	$(eval export DOCKER_CLI_EXPERIMENTAL=enabled)
-	$(eval VERSION := $(shell git describe --tags $(shell git rev-list --tags --max-count=1)))
+	$(eval TAG := $(shell git describe --tags $(shell git rev-list --tags --max-count=1)))
+	$(eval export ECR_REPO=371609436089.dkr.ecr.us-west-2.amazonaws.com/vcv-cluster-rtsp-simple-server-devops)
 
 	# docker login -u $(DOCKER_USER) -p $(DOCKER_PASSWORD)
 
@@ -38,7 +39,7 @@ docker:
 	--provenance=false \
 	--platform=linux/amd64 \
 	--build-arg BINARY="$$(echo binaries/*linux_amd64.tar.gz)" \
-	-t rtsp-simple-server:${VERSION} \
+	-t ${ECR_REPO}:${TAG} \
 	--load
 
 	docker buildx rm builder
